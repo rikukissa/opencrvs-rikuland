@@ -19,7 +19,7 @@ all:
 docker-manager-first:
   hosts:
     rikuland-qa:
-      ansible_host: '46.101.148.26'
+      ansible_host: '95.217.156.188'
       data_label: data1
 
 # QA and staging servers are not configured to use workers.
