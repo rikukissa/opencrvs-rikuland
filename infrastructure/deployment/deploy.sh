@@ -224,6 +224,8 @@ get_docker_tags_from_compose_files() {
    IMAGE_TAG_LIST=$(cat $SPACE_SEPARATED_COMPOSE_FILE_LIST \
    `# Select rows with the image tag` \
    | grep image: \
+   `# Ignore the baseimage file as its not used directly` \
+   | grep -v ocrvs-base \
    `# Only keep the image version` \
    | sed "s/image://")
 
@@ -369,9 +371,7 @@ configured_rsync -rlD /tmp/docker-compose.yml /tmp/docker-compose.deps.yml $SSH_
 
 echo "Logging to Dockerhub"
 
-configured_ssh << EOF
-  docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN
-EOF
+configured_ssh "docker login -u $DOCKER_USERNAME -p $DOCKER_TOKEN"
 
 # Setup configuration files and compose file for the deployment domain
 configured_ssh "/opt/opencrvs/infrastructure/setup-deploy-config.sh $HOST"
@@ -385,6 +385,15 @@ echo "This script doesnt ensure that all docker containers successfully start, j
 echo
 echo "Waiting 2 mins for mongo to deploy before working with data. Please note it can take up to 10 minutes for the entire stack to deploy in some scenarios."
 echo
+
+echo 'Setting up elastalert indices'
+
+while true; do
+  if configured_ssh "/opt/opencrvs/infrastructure/elasticsearch/setup-elastalert-indices.sh"; then
+    break
+  fi
+  sleep 5
+done
 
 echo "Setting up Kibana config & alerts"
 
