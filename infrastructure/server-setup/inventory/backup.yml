@@ -27,4 +27,4 @@ all:
 backups-host:
   hosts:
     rikuland-backup:
-      ansible_host: '64.226.125.31'
+      ansible_host: '64.226.80.216'

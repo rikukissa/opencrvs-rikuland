@@ -37,7 +37,7 @@ all:
 docker-manager-first:
   hosts:
     rikuland-prod:
-      ansible_host: '138.68.84.236'
+      ansible_host: '95.217.16.253'
       data_label: data1
       # If you are using a jump server to access this environment, enter other SSH args here.
       # ansible_ssh_common_args: '-J jump@55.55.55.55 -o StrictHostKeyChecking=no'
@@ -47,13 +47,13 @@ docker-manager-first:
 docker-workers:
   hosts:
     rikuland-prod-02:
-      ansible_host: '104.248.26.21'
+      ansible_host: '207.154.252.136'
       data_label: data2
 
 backups:
   hosts:
     rikuland-backup:
-      ansible_host: '64.226.125.31'
+      ansible_host: '64.226.80.216'
       # Written by provision pipeline. Assumes "backup" environment
       # exists in Github environments
       ansible_ssh_private_key_file: /tmp/backup_ssh_private_key
