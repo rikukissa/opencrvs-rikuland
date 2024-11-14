@@ -41,8 +41,7 @@ all:
 docker-manager-first:
   hosts:
     rikuland-staging:
-      ansible_host: '134.209.237.242'
-      ansible_port: 3434
+      ansible_host: '37.27.80.169'
       data_label: data1
       # If you are using a jump server to access this environment, enter other SSH args here.
       # ansible_ssh_common_args: '-J jump@55.55.55.55 -o StrictHostKeyChecking=no'
